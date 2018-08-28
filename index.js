@@ -39,10 +39,39 @@ fs.readFile('tarefas.json', {encoding: 'UTF-8'}, function(erro, dados){
 
             console.log(`${i+1} - ${tarefa.conteudo} - ${status}`);
         }
+        //TODO: Mostrar mensagem quando a lista está vazia
     } else if(comando === 'fazer'){
-        console.log('O comando foi fazer');
+        for(let tarefa of listaTarefas){
+            if(tarefa.conteudo === entrada){
+                tarefa.feita = true;
+            }
+        }
+
+        let listaTarefasString = JSON.stringify(listaTarefas);
+
+        fs.writeFile('tarefas.json', listaTarefasString, function(erro){
+            if(erro){
+                console.log('Erro ao gravar arquivo');
+                return;
+            }
+
+            console.log('Tarefa feita!');
+        });
+
+        //TODO: tratar casos de tarefa não encontrada
     } else if(comando === 'limpar'){
-        console.log('O comando foi limpar');
+        listaTarefas = [];
+
+        let listaTarefasString = JSON.stringify(listaTarefas);
+
+        fs.writeFile('tarefas.json', listaTarefasString, function(erro){
+            if(erro){
+                console.log('Erro ao gravar arquivo');
+                return;
+            }
+
+            console.log('A lista foi limpa!');
+        });
     } else {
         console.log('Comando inválido.');
     }
