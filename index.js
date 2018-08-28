@@ -27,7 +27,18 @@ fs.readFile('tarefas.json', {encoding: 'UTF-8'}, function(erro, dados){
             console.log('Tarefa inserida!');
         });
     } else if(comando === 'listar'){
-        console.log('O comando foi listar');
+        for(let i = 0; i < listaTarefas.length; i++){
+            let tarefa = listaTarefas[i];
+            let status = tarefa.feita ? 'feita' : 'pendente';
+            //o ternário acima representa essa expressão:
+            // if(tarefa.feita){
+            //     status = 'feita';
+            // }else{
+            //     status = 'pendente';
+            // }
+
+            console.log(`${i+1} - ${tarefa.conteudo} - ${status}`);
+        }
     } else if(comando === 'fazer'){
         console.log('O comando foi fazer');
     } else if(comando === 'limpar'){
